@@ -10,7 +10,7 @@ path: requirements.txt
 - To use the file: 
 1. python pip install -r requirements.txt
 
-## Instructions to run assignment_2.py
+## Instructions to run assignment_3.py
 path: src/main/assignment_3.py
 
 - Open terminal
