@@ -75,22 +75,25 @@ def gauss_jordan(A):
 
 # Question 4 - LU Factorization
 def get_determinant(B):
+    # print determinant
     print(np.linalg.det(B))
 
 def get_lu_matrix(B):
     # get current shape 
     n = B.shape[0]
+    # initialize matrix
     L = np.zeros_like(B)
     U = np.zeros_like(B)
+    
     # factorization
     for k in range(n):
         L[k,k] = 1
         U[k,k:] = B[k,k:] - L[k,:k] @ U[:k,k:]
         L[k+1:,k] = (B[k+1:,k] - L[k+1:,:k] @ U[:k,k]) / U[k,k]
     
+    # print both matrix
     result_L =  L.astype(float)
     result_U =  U.astype(float)
-
     print(result_L)
     print()
     print(result_U)
