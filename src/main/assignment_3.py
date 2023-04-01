@@ -4,6 +4,7 @@ np.set_printoptions(precision=7, suppress=True, linewidth=100)
 def function(t: float, y: float):
     return t - (y**2)
 
+# Question 1 - Euler Method
 def modified_eulers():
     start_of_t, end_of_t = (0, 2)
     num_of_iterations = 10
@@ -18,11 +19,12 @@ def modified_eulers():
         incremented_function_call = function(t[cur_iteration], w[cur_iteration])
         w[cur_iteration + 1] = w[cur_iteration] + h * incremented_function_call
         t[cur_iteration+1] = t[cur_iteration] + h
-        
+
     print(w[cur_iteration + 1])
 
     return None
 
+# Question 2 - Runge-Kutta 
 def midpoint_method():
     start_of_t, end_of_t = (0, 2)
     num_of_iterations = 10
@@ -72,11 +74,11 @@ def gauss_jordan(A):
     return x
 
 # Question 4 - LU Factorization
-def get_determinant(C):
-    print(np.linalg.det(C))
+def get_determinant(B):
+    print(np.linalg.det(B))
 
-def get_l_matrix(C):
-    L = C
+def get_l_matrix(B):
+    L = B
     L[np.diag_indices_from(L)] = 1
     L[0][1] = L[0][2] = L[0][3] = 0
     L[1][2] = L[1][3] = 0
@@ -90,9 +92,9 @@ def get_l_matrix(C):
 
     return None
 
-def get_u_matrix(C):
+def get_u_matrix(B):
 
-    U = np.triu(C)
+    U = np.triu(B)
     U[0][1]= 1
     U[0][3]= U[2][2]= 3
     U[1][1]= U[1][2] = -1
@@ -106,11 +108,11 @@ def get_u_matrix(C):
     return None
 
 # Question 5 - diagonally dominate
-def check_diagonally_dominate(A):
+def check_diagonally_dominate(C):
     # for every row find sum of elements
-    diagonal_coef = np.diag(np.abs(A))
+    diagonal_coef = np.diag(np.abs(C))
     # row sum without diagonal minus the diagonal 
-    row_sum = np.sum(np.abs(A), axis=1) - diagonal_coef
+    row_sum = np.sum(np.abs(C), axis=1) - diagonal_coef
     # if diagonal is greater, then it is diagonally dominate
     if np.all(diagonal_coef > row_sum):
         print ("True")
@@ -118,9 +120,9 @@ def check_diagonally_dominate(A):
         print ("False")
 
 # Question 6 - positive definite
-def check_positive_definite(B):
+def check_positive_definite(D):
     # check if every eigenvalue is positive
-    if np.all(np.linalg.eigvals(B) > 0):
+    if np.all(np.linalg.eigvals(D) > 0):
         print ("True")
     else:
         print ("False")
@@ -138,38 +140,38 @@ if __name__ == "__main__":
     A = np.array([[2, -1, 1, 6],
               [1, 3, 1, 0],
               [-1, 5, 4, -3]], dtype=float)
-
     x = gauss_jordan(A)
     result = np.round(x.transpose()).astype(int)
     print(result)
     print()
 
     # Question 4
-    C = np.array([[1, 1, 0, 3],
+    B = np.array([[1, 1, 0, 3],
               [2, 1, -1, 1],
               [3, -1, -1, 2],
               [-1, 2, 3, -1]
               ])
-    get_determinant(C)
+    get_determinant(B)
     print()
-    get_l_matrix(C)
+    get_l_matrix(B)
     print()
-    get_u_matrix(C)
+    get_u_matrix(B)
+    print()
 
     # Question 5
-    A = np.array([[9, 0, 5, 2, 1],
+    C = np.array([[9, 0, 5, 2, 1],
               [3, 9, 1, 2, 1],
               [0, 1, 7, 2, 3],
               [4, 2, 3, 12, 2],
               [3, 2, 4, 0, 8]
               ])
-    check_diagonally_dominate(A)
+    check_diagonally_dominate(C)
     print()
 
     # Question 6
-    B = np.array([[2, 2, 1],
+    D = np.array([[2, 2, 1],
               [2, 3, 0],
               [1, 0, 2]
               ])
-    check_positive_definite(B)
+    check_positive_definite(D)
  
