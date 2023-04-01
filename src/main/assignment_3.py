@@ -81,15 +81,16 @@ def get_determinant(B):
 def get_lu_matrix(B):
     # get current shape 
     n = B.shape[0]
-    # initialize matrix
+    # initialize L matrix for lower-triangular
+    # initialize U matrix for upper-triangular
     L = np.zeros_like(B)
     U = np.zeros_like(B)
     
     # factorization
-    for k in range(n):
-        L[k,k] = 1
-        U[k,k:] = B[k,k:] - L[k,:k] @ U[:k,k:]
-        L[k+1:,k] = (B[k+1:,k] - L[k+1:,:k] @ U[:k,k]) / U[k,k]
+    for curr_it in range(n):
+        L[curr_it,curr_it] = 1
+        U[curr_it,curr_it:] = B[curr_it,curr_it:] - L[curr_it,:curr_it] @ U[:curr_it,curr_it:]
+        L[curr_it+1:,curr_it] = (B[curr_it+1:,curr_it] - L[curr_it+1:,:curr_it] @ U[:curr_it,curr_it]) / U[curr_it,curr_it]
     
     # print both matrix
     result_L =  L.astype(float)
