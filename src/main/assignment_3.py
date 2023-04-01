@@ -77,33 +77,23 @@ def gauss_jordan(A):
 def get_determinant(B):
     print(np.linalg.det(B))
 
-def get_l_matrix(B):
-    L = B
-    L[np.diag_indices_from(L)] = 1
-    L[0][1] = L[0][2] = L[0][3] = 0
-    L[1][2] = L[1][3] = 0
-    L[2][3] = 0
-    L[2][1] = 4
-    L[3][1] = -3
-    L[3][2] = 0
+def get_lu_matrix(B):
+    # get current shape 
+    n = B.shape[0]
+    L = np.zeros_like(B)
+    U = np.zeros_like(B)
+    # factorization
+    for k in range(n):
+        L[k,k] = 1
+        U[k,k:] = B[k,k:] - L[k,:k] @ U[:k,k:]
+        L[k+1:,k] = (B[k+1:,k] - L[k+1:,:k] @ U[:k,k]) / U[k,k]
+    
+    result_L =  L.astype(float)
+    result_U =  U.astype(float)
 
-    result =  L.astype(float)
-    print(result)
-
-    return None
-
-def get_u_matrix(B):
-
-    U = np.triu(B)
-    U[0][1]= 1
-    U[0][3]= U[2][2]= 3
-    U[1][1]= U[1][2] = -1
-    U[1][3]= -5
-    U[2][3]= 13
-    U[3][3]= -13
-
-    result =  U.astype(float)
-    print(result)
+    print(result_L)
+    print()
+    print(result_U)
 
     return None
 
@@ -153,9 +143,7 @@ if __name__ == "__main__":
               ])
     get_determinant(B)
     print()
-    get_l_matrix(B)
-    print()
-    get_u_matrix(B)
+    get_lu_matrix(B)
     print()
 
     # Question 5
