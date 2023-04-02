@@ -20,7 +20,8 @@ def modified_eulers():
         w[cur_iteration + 1] = w[cur_iteration] + h * incremented_function_call
         t[cur_iteration+1] = t[cur_iteration] + h
 
-    print(w[cur_iteration + 1])
+    rounded_w = w[cur_iteration + 1]
+    print("%.5f" % rounded_w)
 
     return None
 
@@ -45,7 +46,8 @@ def midpoint_method():
         w[cur_iteration + 1] = w[cur_iteration] + 1/6 * (k1 + (2 * k2) + (2 * k3) + k4)
         t[cur_iteration+1] = t[cur_iteration] + h
         
-    print(w[cur_iteration + 1])
+    rounded_w = w[cur_iteration + 1]
+    print("%.5f" % rounded_w)
 
     return None
 
@@ -76,7 +78,9 @@ def gauss_jordan(A):
 # Question 4 - LU Factorization
 def get_determinant(B):
     # print determinant
-    print(np.linalg.det(B))
+    rounded_det = round(np.linalg.det(B))
+    print("%.5f" % rounded_det)
+    
 
 def get_lu_matrix(B):
     # get current shape 
@@ -135,8 +139,7 @@ if __name__ == "__main__":
               [1, 3, 1, 0],
               [-1, 5, 4, -3]], dtype=float)
     x = gauss_jordan(A)
-    result = np.round(x.transpose()).astype(int)
-    print(result)
+    print(x)
     print()
 
     # Question 4
